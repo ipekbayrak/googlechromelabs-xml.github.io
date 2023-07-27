@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const xmlbuilder = require('xmlbuilder');
+const fs = require('fs');
 
 // Function to fetch HTML from the URL
 async function fetchHTML(url) {
@@ -49,6 +50,15 @@ async function main() {
   const stableURLs = getStableURLs(html);
   const xml = convertToXML(stableURLs);
   console.log(xml);
+  // save xml to file
+
+  fs.writeFile('output.xml', xml, (err) => {
+    if (err) {
+      console.error('Error writing file:', err);
+    } else {
+      console.log('File written successfully');
+    }
+  });
 }
 
 main();
